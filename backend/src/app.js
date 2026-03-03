@@ -8,7 +8,9 @@ import taskRoutes from "../src/routes/task.routes.js"
 const app = express();
 
 app.use(cors({
-    origin: "https://machines-task.vercel.app",
+    origin: process.env.NODE_ENV === "production"
+        ? "https://machines-task.vercel.app"
+        : "http://localhost:5173",
     credentials: true
 }))
 app.use(cookieParser())

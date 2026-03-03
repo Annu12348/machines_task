@@ -10,10 +10,11 @@ export const loginController = async (req, res) => {
 
     const admin = await userServices.login({ email, password })
 
+    // Production aur local environment dono ke liye cookie set karne ka logic
     res.cookie("token", admin.token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
+      secure: process.env.NODE_ENV === "production", // production me true, local me false
+      sameSite: process.env.NODE_ENV === "production" ? "strict" : "lax", // local me lax to allow cross-origin in dev tools
       maxAge: 24 * 60 * 60 * 1000,
     });
 
