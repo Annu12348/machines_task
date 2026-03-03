@@ -9,7 +9,6 @@ const API_URL =
 
 const instance = axios.create({
   baseURL: API_URL,
-  withCredentials: true, // Send cookies (for auth)
 });
 
 export default instance;
