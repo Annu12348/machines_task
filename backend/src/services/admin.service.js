@@ -3,6 +3,19 @@ import jwt from 'jsonwebtoken'
 import { config } from "../config/config.js";
 import adminModel from "../models/admin.model.js";
 
+class adminServices {
+    constructor() {
+        this.adminRepository = new MongoUserRepository();
+    }
+
+    async register(adminData) {
+        console.log(userData, "This is userData");
+        const email = userData.email.trim().toLowerCase();
+
+        const existsEmail = await this.adminRepository.findByIdEmail
+    }
+}
+
 export const login = async ({ email, password }) => {
     email = email.trim().toLowerCase();
 
