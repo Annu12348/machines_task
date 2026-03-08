@@ -2,19 +2,23 @@ import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import { config } from "../config/config.js";
 import adminModel from "../models/admin.model.js";
+import MongoAdminRepository from '../repositories/implementations/mongoUserRepository.js';
 
-class adminServices {
+class AdminServices {
     constructor() {
-        this.adminRepository = new MongoUserRepository();
+        this.adminRepository = new MongoAdminRepository();
     }
 
     async register(adminData) {
-        console.log(userData, "This is userData");
-        const email = userData.email.trim().toLowerCase();
+        const admin = await this.adminRepository.createdAdmin(adminData);
 
-        const existsEmail = await this.adminRepository.findByIdEmail
+        return admin;
     }
 }
+
+export default new AdminServices();
+
+
 
 export const login = async ({ email, password }) => {
     email = email.trim().toLowerCase();

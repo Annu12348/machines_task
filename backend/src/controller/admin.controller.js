@@ -1,8 +1,28 @@
 import { config } from "../config/config.js";
 import jwt from "jsonwebtoken";
 import adminModel from "../models/admin.model.js";
-import * as userServices from "../services/admin.service.js";
+import adminService, * as userServices from "../services/admin.service.js";
 
+class adminController {
+
+  async register(req, res) {
+    try {
+      const admin = await adminService.register(req.body);
+
+      res.status(201).json({
+        success: true,
+        message: "Admin registered successfully",
+        data: admin
+      });
+    } catch (error) {
+      res.status(500).json({
+        message: error.message || "Internal server error"
+      })
+    }
+  }
+}
+
+export default new adminController();
 
 export const loginController = async (req, res) => {
   try {
