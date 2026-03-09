@@ -9,6 +9,13 @@ class adminController {
     try {
       const admin = await adminService.register(req.body);
 
+      res.cookie("token", admin.token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+        maxAge: 24 * 60 * 60 * 1000,
+      });
+
       res.status(201).json({
         success: true,
         message: "Admin registered successfully",
@@ -20,17 +27,13 @@ class adminController {
       })
     }
   }
-}
 
-export default new adminController();
+  async login(req, res) {
+    try {
+      const { email, password } = req.body;
 
-export const loginController = async (req, res) => {
-  try {
-    const { email, password } = req.body;
+    const admin = await adminService.login({ email, password })
 
-    const admin = await userServices.login({ email, password })
-
-    // Production aur local environment dono ke liye cookie set karne ka logic
     res.cookie("token", admin.token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
@@ -42,12 +45,15 @@ export const loginController = async (req, res) => {
       message: "Login successfully",
       result: admin.admin,
     });
-  } catch (error) {
-    res.status(error.statusCode || 500).json({
-      message: error.message || "Internal server error",
-    });
+    } catch (error) {
+      res.status(500).json({
+        message: error.message || "Internal server error"
+      })
+    }
   }
-};
+}
+
+export default new adminController();
 
 export const protectedRoutesController = async (req, res) => {
   try {

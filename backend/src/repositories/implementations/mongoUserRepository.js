@@ -5,12 +5,19 @@ import IAdminRepository from "../contracts/IAdminRepository.js";
 class MongoAdminRepository extends IAdminRepository {
     async createdAdmin(adminData) {
         try {
-            const admin = new adminModel(adminData)
-            const savedAdmin = await admin.save()
-            return savedAdmin;
+            const admin = await adminModel.create(adminData)
+            return admin;
         } catch (error) {
             console.error("Error creating user:", error);
             throw new AppError(`Failed to create admin: ${error.message}`, 500, error)
+        }
+    }
+
+    async findAdminByEmail(email) {
+        try {
+            return await adminModel.findOne({ email })
+        } catch (error) {
+            throw new AppError(`failed to email: ${error.message}`, 500, error)
         }
     }
 }
