@@ -32,23 +32,40 @@ class adminController {
     try {
       const { email, password } = req.body;
 
-    const admin = await adminService.login({ email, password })
+      const admin = await adminService.login(email, password)
 
-    res.cookie("token", admin.token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-      maxAge: 24 * 60 * 60 * 1000,
-    });
+      res.cookie("token", admin.token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+        maxAge: 24 * 60 * 60 * 1000,
+      });
 
-    res.status(200).json({
-      message: "Login successfully",
-      result: admin.admin,
-    });
+      res.status(200).json({
+        message: "Login successfully",
+        result: admin.admin,
+      });
     } catch (error) {
       res.status(500).json({
         message: error.message || "Internal server error"
       })
+    }
+  }
+
+  async forgetPassword(req, res) {
+    try {
+      const { email } = req.body;
+
+      const admin = await adminService.forgetPassword(email);
+
+      res.status(200).json({
+        message: "OTP sent successfully",
+        data: admin
+      });
+    } catch (error) {
+      res.status(500).json({
+        message: error.message || "Internal server error"
+      });
     }
   }
 }

@@ -95,9 +95,8 @@ const Login = () => {
                 placeholder="Email Address"
                 value={inputValue.email}
                 onChange={handleInputChange}
-                className={`w-full px-4 py-3 rounded-lg border ${
-                  formError.email ? "border-red-500" : "border-slate-300"
-                } focus:outline-none focus:ring-2 focus:ring-blue-500`}
+                className={`w-full px-4 py-3 rounded-lg border ${formError.email ? "border-red-500" : "border-slate-300"
+                  } focus:outline-none focus:ring-2 focus:ring-blue-500`}
                 autoComplete="email"
               />
               {formError.email && (
@@ -111,9 +110,8 @@ const Login = () => {
                 placeholder="Password"
                 value={inputValue.password}
                 onChange={handleInputChange}
-                className={`w-full px-4 py-3 rounded-lg border ${
-                  formError.password ? "border-red-500" : "border-slate-300"
-                } focus:outline-none focus:ring-2 focus:ring-blue-500`}
+                className={`w-full px-4 py-3 rounded-lg border ${formError.password ? "border-red-500" : "border-slate-300"
+                  } focus:outline-none focus:ring-2 focus:ring-blue-500`}
                 autoComplete="current-password"
               />
               {formError.password && (
@@ -123,11 +121,11 @@ const Login = () => {
             {submitError && (
               <div className="text-red-600 text-center text-sm">{submitError}</div>
             )}
-            {success && (
-              <div className="text-green-600 text-center text-sm">
-                Login successful! Redirecting...
-              </div>
-            )}
+            <Link
+            to='/forget-password'
+             className="text-blue-500 capitalize font-semibold text-right block ">
+              forget password
+            </Link>
             <button
               type="submit"
               className="w-full py-3 cursor-pointer rounded-lg bg-blue-600 text-white font-semibold hover:bg-blue-700 transition duration-300 disabled:opacity-60"
@@ -139,6 +137,7 @@ const Login = () => {
           <p className="text-sm text-slate-500 mt-6 text-center">
             Don&apos;t have an account?{" "}
             <Link
+              to='/register'
               className="text-blue-600 font-medium cursor-pointer hover:underline"
             >
               Signup

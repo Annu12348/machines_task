@@ -1,6 +1,6 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
-import Login from '../pages/login/Login'
+import Login from '../pages/auth/Login'
 import Dashboard from '../pages/dashboard/Dashboard'
 import ProtectRoutes from '../components/ProtectRoutes'
 import Employee from '../pages/employee/Employee'
@@ -9,11 +9,15 @@ import UpdateEmployee from '../pages/employee/UpdateEmployee'
 import Task from '../pages/task/Task'
 import CreatedTask from '../pages/task/CreatedTask'
 import UpdateTask from '../pages/task/UpdateTask'
+import Register from '../pages/auth/Register'
+import ForgetPassword from '../pages/auth/ForgetPassword'
 
 const Router = () => {
   return (
     <Routes>
       <Route path='/login' element={<Login />} />
+      <Route path='/register' element={<Register />} />
+      <Route path='/forget-password' element={<ForgetPassword />} />
       <Route path='/' element={
         <ProtectRoutes>
           <Dashboard />

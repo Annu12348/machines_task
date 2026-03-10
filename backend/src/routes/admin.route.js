@@ -19,6 +19,11 @@ router.post(
     adminController.login
 );
 
+router.post(
+    "/forget-password",
+    adminController.forgetPassword
+)
+
 router.get("/me", protectedRoutesController);
 
 export default router;

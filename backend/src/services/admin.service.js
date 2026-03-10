@@ -1,9 +1,9 @@
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import { config } from "../config/config.js";
-import adminModel from "../models/admin.model.js";
 import MongoAdminRepository from '../repositories/implementations/mongoUserRepository.js';
 import AppError from '../utils/errors.js';
+import { sendOtpMail } from '../workers/sendEmail.js';
 
 class AdminServices {
     constructor() {
@@ -30,6 +30,9 @@ class AdminServices {
                 _id: admin._id,
                 name: admin.name,
                 email: admin.email,
+                contact: admin.contact,
+                role: admin.role,
+                status: admin.status,
                 createdAt: admin.createdAt,
                 updatedAt: admin.updatedAt
             },
@@ -58,11 +61,35 @@ class AdminServices {
                 _id: admin._id,
                 name: admin.name,
                 email: admin.email,
+                contact: admin.contact,
+                role: admin.role,
+                status: admin.status,
                 createdAt: admin.createdAt,
                 updatedAt: admin.updatedAt
             },
             token
         }
+    }
+
+    async forgetPassword(email) {
+        email = email.trim().toLowerCase();
+
+        const admin = await this.adminRepository.findAdminByEmail(email)
+
+        if (!admin) {
+            throw new AppError("admin not found", 404)
+        }
+
+        const otp = Math.floor(1000 + Math.random() * 9000).toString();
+        admin.resetOtp = otp;
+        admin.otpExpires = Date.now() + 5 * 60 * 1000;
+        admin.otpVerify = false;
+
+        await admin.save();
+
+        await sendOtpMail(email, otp);
+
+        return admin;
     }
 }
 

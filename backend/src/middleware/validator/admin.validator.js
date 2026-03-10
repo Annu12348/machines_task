@@ -15,6 +15,13 @@ export const registerValidator = [
     .withMessage("Invalid email format")
     .normalizeEmail(),
 
+  body("contact")
+    .notEmpty()
+    .withMessage("Contact is required")
+    .isLength({ min: 7, max: 15 })
+    .withMessage("Contact must be between 7 and 15 characters")
+    .trim(),
+
   body("password")
     .notEmpty()
     .withMessage("Password is required")
@@ -28,6 +35,16 @@ export const registerValidator = [
     .withMessage("Password must contain at least one digit")
     .matches(/[\W_]/)
     .withMessage("Password must contain at least one special character"),
+
+  body("role")
+    .optional()
+    .isIn(['Admin', 'Employee'])
+    .withMessage("Role must be either 'Admin' or 'Employee'"),
+
+  body("status")
+    .optional()
+    .isIn(["active", "inactive"])
+    .withMessage("Status must be either 'active' or 'inactive'"),
 ]
 
 export const loginValidator = [
