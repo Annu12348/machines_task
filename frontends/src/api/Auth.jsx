@@ -11,7 +11,13 @@ export const login = (data) => {
 }
 
 export const resetOtpJenerateToSend = (data) => {
-    return instance.post('/forget-password', data, {
+    return instance.post('/otp-send-to', data, {
+        withCredentials: true
+    })
+}
+
+export const otpVerify = (data) => {
+    return instance.post('/otp-verify', data, {
         withCredentials: true
     })
 }

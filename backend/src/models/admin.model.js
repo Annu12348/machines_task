@@ -46,7 +46,7 @@ const adminSchema = new mongoose.Schema({
     otpVerify: {
         type: Boolean,
         default: false,
-    }
+    },
 }, {
     timestamps: true,
     versionKey: false

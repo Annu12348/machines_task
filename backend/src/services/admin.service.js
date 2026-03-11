@@ -71,7 +71,7 @@ class AdminServices {
         }
     }
 
-    async forgetPassword(email) {
+    async otpSendToEmail(email) {
         email = email.trim().toLowerCase();
 
         const admin = await this.adminRepository.findAdminByEmail(email)
@@ -88,6 +88,34 @@ class AdminServices {
         await admin.save();
 
         await sendOtpMail(email, otp);
+
+        return admin;
+    }
+
+    async otpVerify(email, otp) {
+        email = email.trim().toLowerCase();
+
+        const admin = await this.adminRepository.findAdminByEmail(email);
+
+        if (!admin) {
+            throw new AppError("admin not found", 404)
+        }
+
+        if (admin.resetOtp !== otp) {
+            throw new AppError("Invalid OTP", 404)
+        }
+
+        admin.resetOtp = null;
+
+        if (admin.otpExpires < Date.now()) {
+            throw new Error("OTP has expired", 400)
+          }
+
+          
+        admin.otpVerify = true;
+        admin.otpExpires = Date.now();
+        await admin.save()
+
 
         return admin;
     }

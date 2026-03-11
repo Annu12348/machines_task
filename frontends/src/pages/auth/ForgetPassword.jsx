@@ -1,15 +1,18 @@
-import React, { useState } from "react";
+import React, { useState } from 'react'
 import { Link } from "react-router-dom";
-import { resetOtpJenerateToSend } from "../../api/Auth";
+import { otpVerify, resetOtpJenerateToSend } from '../../api/Auth';
+import instance from '../../utils/axios';
 
 const ForgetPassword = () => {
   const [loading, setLoading] = useState(false);
+  const [step, setStep] = useState(1)
+  const [otp, setOtp] = useState("")
   const [formError, setFormError] = useState({});
   const [submitError, setSubmitError] = useState("");
   const [success, setSuccess] = useState(false);
   const [inputValue, setInputValue] = useState({
-    email: "",
-  });
+    email: ""
+  })
 
   const validate = (values) => {
     const errors = {};
@@ -36,21 +39,20 @@ const ForgetPassword = () => {
     setSubmitError("");
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setSubmitError("");
-    setSuccess(false);
-    const errors = validate(inputValue);
-    if (Object.keys(errors).length > 0) {
-      setFormError(errors);
-      return;
-    }
-    setLoading(true);
-
+  const sendEmailToOtpApi = async () => {
     try {
+      setSubmitError("");
+      setSuccess(false);
+      const errors = validate(inputValue);
+      if (Object.keys(errors).length > 0) {
+        setFormError(errors);
+        return;
+      }
+      setLoading(true);
       await resetOtpJenerateToSend(inputValue);
+      setStep(2)
       setSuccess(true);
-      setInputValue({ email: "" });
+      //setInputValue({ email: "" });
     } catch (error) {
       setSubmitError(
         error?.response?.data?.message ||
@@ -61,7 +63,47 @@ const ForgetPassword = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }
+
+  const verifyOtpApi = async () => {
+    try {
+      setSubmitError("");
+      setSuccess(false);
+      if (!otp || otp.trim().length === 0) {
+        setFormError(prev => ({ ...prev, otp: "OTP is required" }));
+        return;
+      }
+
+      setLoading(true);
+      // Ensure that both email and otp are sent in req.body
+      const dataToSend = {
+        email: inputValue.email,
+        otp: otp.trim()
+      };
+      const response = await otpVerify(dataToSend);
+      setStep(3)
+      setSuccess(true);
+    } catch (error) {
+      setSubmitError(
+        error?.response?.data?.message ||
+        error?.message ||
+        "Something went wrong. Please try again."
+      );
+      setSuccess(false);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    sendEmailToOtpApi()
+  }
+
+  const handleSubmit1 = (e) => {
+    e.preventDefault();
+    verifyOtpApi() 
+  }
 
   return (
     <div className="min-h-screen w-full bg-zinc-200 flex items-center justify-center p-4 sm:p-6">
@@ -71,39 +113,74 @@ const ForgetPassword = () => {
           <p className="text-slate-500 mb-8 text-base">
             Enter your registered email address. We'll send you an OTP to reset your password.
           </p>
-          <form className="space-y-5" onSubmit={handleSubmit} noValidate>
-            <div>
-              <input
-                type="email"
-                name="email"
-                placeholder="Email Address"
-                value={inputValue.email}
-                onChange={handleInputChange}
-                className={`w-full px-4 py-3 rounded-lg border ${formError.email ? "border-red-500" : "border-slate-300"
-                  } focus:outline-none focus:ring-2 focus:ring-blue-500`}
-                autoComplete="email"
-                required
-              />
-              {formError.email && (
-                <p className="text-red-600 text-sm mt-1">{formError.email}</p>
-              )}
-            </div>
-            {submitError && (
-              <div className="text-red-600 text-center text-sm">{submitError}</div>
-            )}
-            {success && (
-              <div className="text-green-600 text-center text-sm">
-                OTP has been sent to your email address!
+          {step == 1 && (
+            <form className="space-y-5" onSubmit={handleSubmit} noValidate>
+              <div>
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Email Address"
+                  value={inputValue.email}
+                  onChange={handleInputChange}
+                  className={`w-full px-4 py-3 rounded-lg border ${formError.email ? "border-red-500" : "border-slate-300"
+                    } focus:outline-none focus:ring-2 focus:ring-blue-500`}
+                  autoComplete="email"
+                  required
+                />
+                {formError.email && (
+                  <p className="text-red-600 text-sm mt-1">{formError.email}</p>
+                )}
               </div>
-            )}
-            <button
-              type="submit"
-              className="w-full py-3 cursor-pointer capitalize rounded-lg bg-blue-600 text-white font-semibold hover:bg-blue-700 transition duration-300 disabled:opacity-60"
-              disabled={loading}
-            >
-              {loading ? "Sending OTP..." : "Send OTP"}
-            </button>
-          </form>
+              {submitError && (
+                <div className="text-red-600 text-center text-sm">{submitError}</div>
+              )}
+              {success && (
+                <div className="text-green-600 text-center text-sm">
+                  OTP has been sent to your email address!
+                </div>
+              )}
+              <button
+                type="submit"
+                className="w-full py-3 cursor-pointer capitalize rounded-lg bg-blue-600 text-white font-semibold hover:bg-blue-700 transition duration-300 disabled:opacity-60"
+                disabled={loading}
+              >
+                {loading ? "Sending OTP..." : "Send OTP"}
+              </button>
+            </form>
+          )}
+
+          {step == 2 && (
+            <form className="space-y-5" onSubmit={handleSubmit1} noValidate>
+              <div>
+                <input
+                  type="text"
+                  name="otp"
+                  placeholder="Enter Your Otp"
+                  value={otp}
+                  onChange={(e) => setOtp(e.target.value)}
+                  className={`w-full px-4 py-3 rounded-lg border ${formError.otp ? "border-red-500" : "border-slate-300"
+                    } focus:outline-none focus:ring-2 focus:ring-blue-500`}
+                  autoComplete="one-time-code"
+                  required
+                />
+                {formError.otp && (
+                  <p className="text-red-600 text-sm mt-1">{formError.otp}</p>
+                )}
+
+              </div>
+              <button
+                type="submit"
+                className="w-full py-3 cursor-pointer capitalize rounded-lg bg-blue-600 text-white font-semibold hover:bg-blue-700 transition duration-300 disabled:opacity-60"
+                disabled={loading}
+              >
+                {loading ? "Verifying OTP..." : "Verify OTP"}
+              </button>
+            </form>
+          )}
+
+          {step == 3 && (
+            <h1>frere</h1>
+          )}
           <p className="text-sm text-slate-500 mt-6 text-center">
             Remembered your password?{" "}
             <Link
@@ -132,7 +209,8 @@ const ForgetPassword = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default ForgetPassword;
+export default ForgetPassword
+

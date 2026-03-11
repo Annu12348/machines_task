@@ -52,16 +52,34 @@ class adminController {
     }
   }
 
-  async forgetPassword(req, res) {
+  async otpSendToEmail(req, res) {
     try {
       const { email } = req.body;
 
-      const admin = await adminService.forgetPassword(email);
+      const admin = await adminService.otpSendToEmail(email);
 
       res.status(200).json({
         message: "OTP sent successfully",
         data: admin
       });
+    } catch (error) {
+      res.status(500).json({
+        message: error.message || "Internal server error"
+      });
+    }
+  }
+
+  async otpVerify(req, res) {
+    try {
+      const { email, otp } = req.body;
+
+      const admin = await adminService.otpVerify(email, otp);
+
+      res.status(200).json({
+        success: true,
+        message: "OTP verified successfully",
+        data: admin
+      })
     } catch (error) {
       res.status(500).json({
         message: error.message || "Internal server error"

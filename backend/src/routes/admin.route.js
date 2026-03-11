@@ -20,8 +20,13 @@ router.post(
 );
 
 router.post(
-    "/forget-password",
-    adminController.forgetPassword
+    "/otp-send-to",
+    adminController.otpSendToEmail
+)
+
+router.post(
+    "/otp-verify",
+    adminController.otpVerify
 )
 
 router.get("/me", protectedRoutesController);
