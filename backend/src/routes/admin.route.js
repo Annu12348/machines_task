@@ -36,14 +36,15 @@ router.post(
 )
 
 router.get(
-    "/google",
+    "/google/register",
     passport.authenticate("google", {
-        scope: ["profile", "email"]
+        scope: ["profile", "email"],
+        prompt: "select_account"
     })
 )
 
 router.get(
-    "/google/callback",
+    "/google/register/callback",
     passport.authenticate("google", {
         session: false,
         failureRedirect: "http://localhost:5173/login"

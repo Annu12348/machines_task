@@ -109,10 +109,17 @@ class adminController {
     try {
       const result = await adminService.googleWithRegister(req.user);
 
+      res.cookie("token", result.token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+        maxAge: 24 * 60 * 60 * 1000,
+      });
+
       console.log(result)
       
       return res.redirect(
-        `${config.FRONTEND_URL}/google-success?token=${result.token}`
+        `${config.FRONTEND_URL}`
       );
     } catch (error) {
       res.status(500).json({

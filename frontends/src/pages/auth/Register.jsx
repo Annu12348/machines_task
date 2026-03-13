@@ -380,8 +380,7 @@ const Register = () => {
   );
 
   const handleGoogleRegister = () => {
-    console.log("Redirecting to Google Register URL:", "http://localhost:5000/api/admin/google");
-    window.location.href = "http://localhost:5000/api/admin/google";
+    window.location.href = "http://localhost:5000/api/admin/google/register";
   };
 
   return (

@@ -10,7 +10,7 @@ passport.use(
       callbackURL: config.GOOGLE_CALLBACK_URL,
     },
 
-    async (accessToken, refreshToke, profile, done) => {
+    async (accessToken, refreshToken, profile, done) => {
       try {
         const adminData = {
           name: profile.displayName,

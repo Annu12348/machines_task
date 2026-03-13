@@ -156,21 +156,8 @@ class AdminServices {
         const existsAdmin = await this.adminRepository.findAdminByEmail(adminData.email)
 
         if (existsAdmin) {
-            if (existsAdmin.provider == "google") {
-                const token = jwt.sign(
-                    { id: existsAdmin._id, role: existsAdmin.role },
-                    config.JWT_SECRET_KEY,
-                    { expiresIn: '1d' }
-                )
-
-                return {
-                    admin: existsAdmin,
-                    token
-                };
-            }
-
             throw new AppError(
-                "Admin already exists with email/password login",
+                "Admin already exists. Please login with Google.",
                 400
             );
         }
