@@ -23,7 +23,11 @@ class AdminServices {
 
         const admin = await this.adminRepository.createdAdmin(adminData);
 
-        const token = jwt.sign({ id: admin._id }, config.JWT_SECRET_KEY, { expiresIn: '1d' });
+        const token = jwt.sign(
+            { id: admin._id, role: admin.role },
+            config.JWT_SECRET_KEY,
+            { expiresIn: '1d' }
+        );
 
         return {
             admin: {
@@ -54,7 +58,11 @@ class AdminServices {
             throw new AppError("Invalid email or password", 401)
         }
 
-        const token = jwt.sign({ id: admin._id }, config.JWT_SECRET_KEY, { expiresIn: '1d' });
+        const token = jwt.sign(
+            { id: admin._id, role: admin.role },
+            config.JWT_SECRET_KEY,
+            { expiresIn: '1d' }
+        );
 
         return {
             admin: {
@@ -109,15 +117,83 @@ class AdminServices {
 
         if (admin.otpExpires < Date.now()) {
             throw new Error("OTP has expired", 400)
-          }
+        }
 
-          
+
         admin.otpVerify = true;
         admin.otpExpires = Date.now();
         await admin.save()
 
 
         return admin;
+    }
+
+    async changePassword(email, newPassword) {
+        email = email.trim().toLowerCase();
+
+        const admin = await this.adminRepository.findAdminByEmail(email);
+
+        if (!admin) {
+            throw new AppError("admin not found", 404)
+        }
+
+        if (!admin.otpVerify) {
+            throw new AppError("OTP not verified. Please verify your OTP before resetting password.", 400)
+        }
+
+        admin.otpVerify = false
+
+        const hashedPassword = await bcrypt.hash(newPassword, 10)
+        admin.password = hashedPassword;
+        await admin.save()
+
+        return admin;
+    }
+
+    async googleWithRegister(adminData) {
+        adminData.email = adminData.email.trim().toLowerCase()
+
+        const existsAdmin = await this.adminRepository.findAdminByEmail(adminData.email)
+
+        if (existsAdmin) {
+            if (existsAdmin.provider == "google") {
+                const token = jwt.sign(
+                    { id: existsAdmin._id, role: existsAdmin.role },
+                    config.JWT_SECRET_KEY,
+                    { expiresIn: '1d' }
+                )
+
+                return {
+                    admin: existsAdmin,
+                    token
+                };
+            }
+
+            throw new AppError(
+                "Admin already exists with email/password login",
+                400
+            );
+        }
+
+        const admin = await this.adminRepository.createdAdmin({
+            ...adminData,
+            provider: "google"
+        });
+
+        if (!admin) {
+            throw new AppError("Failed to create admin", 500);
+        }
+
+        const token = jwt.sign(
+            { id: admin._id, role: admin.role },
+            config.JWT_SECRET_KEY,
+            { expiresIn: '1d' }
+        )
+
+        return {
+            admin,
+            token
+        }
     }
 }
 

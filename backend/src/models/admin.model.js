@@ -6,9 +6,10 @@ const adminSchema = new mongoose.Schema({
         required: true,
     },
 
+    // Contact is required for normal (email/password) admins,
+    // but may be omitted for Google-based admins.
     contact: {
         type: String,
-        required: true,
         unique: true
     },
 
@@ -18,15 +19,16 @@ const adminSchema = new mongoose.Schema({
         lowercase: true
     },
 
+    // Password is required for "local" admins but not for "google" admins
+    // because they authenticate via OAuth.
     password: {
         type: String,
-        required: true,
     },
 
     role: {
         type: String,
         enum: ['Admin', 'Employee'],
-        default: 'Admin', 
+        default: 'Admin',
     },
 
     status: {
@@ -42,10 +44,26 @@ const adminSchema = new mongoose.Schema({
     otpExpires: {
         type: Date,
     },
-    
+
     otpVerify: {
         type: Boolean,
         default: false,
+    },
+
+    provider: {
+        type: String,
+        enum: ["local", "google"],
+        default: "local"
+    },
+
+    imageUrl: {
+        type: String,
+        default: ""
+    },
+
+    googleId: {
+        type: String,
+        default: ""
     },
 }, {
     timestamps: true,

@@ -4,8 +4,10 @@ import cookieParser from "cookie-parser"
 import employeeRoutes from '../src/routes/employee.routes.js'
 import adminRoutes from "../src/routes/admin.route.js"
 import taskRoutes from "../src/routes/task.routes.js"
+import passport from '../src/config/passport.config.js';
 
 const app = express();
+
 
 app.use(cors({
     origin: [
@@ -16,6 +18,7 @@ app.use(cors({
 }));
 app.use(cookieParser())
 app.use(express.json())
+app.use(passport.initialize())
 
 app.use("/api/admin", adminRoutes);
 app.use("/api/admin/employee", employeeRoutes);

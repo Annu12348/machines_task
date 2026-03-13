@@ -86,6 +86,40 @@ class adminController {
       });
     }
   }
+
+  async changePassword(req, res) {
+    try {
+      const { email, newPassword } = req.body;
+
+      const admin = await adminService.changePassword(email, newPassword);
+
+      res.status(200).json({
+        success: true,
+        message: "Password changed successfully",
+        data: admin
+      })
+    } catch (error) {
+      res.status(500).json({
+        message: error.message || "Internal server error"
+      });
+    }
+  }
+
+  async googleWithRegister (req, res) {
+    try {
+      const result = await adminService.googleWithRegister(req.user);
+
+      console.log(result)
+      
+      return res.redirect(
+        `${config.FRONTEND_URL}/google-success?token=${result.token}`
+      );
+    } catch (error) {
+      res.status(500).json({
+        message: error.message || "Internal server error"
+      })
+    }
+  }
 }
 
 export default new adminController();

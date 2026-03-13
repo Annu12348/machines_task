@@ -21,3 +21,9 @@ export const otpVerify = (data) => {
         withCredentials: true
     })
 }
+
+export const changePassword = (data) => {
+    return instance.post('/change-password', data, {
+        withCredentials: true
+    })
+}

@@ -11,6 +11,7 @@ import CreatedTask from '../pages/task/CreatedTask'
 import UpdateTask from '../pages/task/UpdateTask'
 import Register from '../pages/auth/Register'
 import ForgetPassword from '../pages/auth/ForgetPassword'
+import GoogleSuccess from '../pages/auth/GoogleSuccess'
 
 const Router = () => {
   return (
@@ -18,6 +19,7 @@ const Router = () => {
       <Route path='/login' element={<Login />} />
       <Route path='/register' element={<Register />} />
       <Route path='/forget-password' element={<ForgetPassword />} />
+      <Route path="/google-success" element={<GoogleSuccess />} />
       <Route path='/' element={
         <ProtectRoutes>
           <Dashboard />
