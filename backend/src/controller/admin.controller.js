@@ -105,7 +105,7 @@ class adminController {
     }
   }
 
-  async googleWithRegister (req, res) {
+  async googleWithRegister(req, res) {
     try {
       const result = await adminService.googleWithRegister(req.user);
 
@@ -117,7 +117,7 @@ class adminController {
       });
 
       console.log(result)
-      
+
       return res.redirect(
         `${config.FRONTEND_URL}`
       );
@@ -125,6 +125,25 @@ class adminController {
       res.status(500).json({
         message: error.message || "Internal server error"
       })
+    }
+  }
+
+  async googleWithLogin(req, res) {
+    try {
+      const result = await adminService.googleWithLogin(req.user);
+
+      res.cookie("adminToken", result.token, {
+        httpOnly: true,
+        secure: false,
+        sameSite: "lax",
+        maxAge: 24 * 60 * 60 * 1000
+      });
+
+      return res.redirect(`${config.FRONTEND_URL}/`);
+    } catch (error) {
+      return res.redirect(
+        `${config.FRONTEND_URL}/login?error=${encodeURIComponent(error.message)}`
+      );
     }
   }
 }

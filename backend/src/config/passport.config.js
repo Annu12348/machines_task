@@ -3,6 +3,7 @@ import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import { config } from "./config.js";
 
 passport.use(
+  "google-register",
   new GoogleStrategy(
     {
       clientID: config.GOOGLE_CLIENT_ID,
@@ -27,6 +28,29 @@ passport.use(
       }
     },
   ),
+);
+
+passport.use(
+  "google-login",
+  new GoogleStrategy(
+    {
+      clientID: config.GOOGLE_CLIENT_ID,
+      clientSecret: config.GOOGLE_CLIENT_SECRET,
+      callbackURL: config.GOOGLE_LOGIN_CALLBACK_URL,
+    },
+    async (accessToken, refreshToken, profile, done) => {
+      const adminData = {
+        name: profile.displayName,
+        email: profile.emails[0].value,
+        googleId: profile.id,
+        imageUrl: profile.photos?.[0]?.value,
+        provider: "google",
+        role: "Admin",
+      };
+
+      return done(null, adminData);
+    }
+  )
 );
 
 export default passport;

@@ -79,6 +79,11 @@ const Login = () => {
     }
   };
 
+  const handleGoogleLogin = () => {
+    window.location.href =
+      "http://localhost:5000/api/admin/google/login";
+  };
+
   return (
     <div className="min-h-screen w-full bg-zinc-200 flex items-center justify-center p-4 sm:p-6">
       <div className="w-full max-w-md md:max-w-4xl bg-white rounded-3xl overflow-hidden grid grid-cols-1 md:grid-cols-5 shadow-lg min-h-[550px]">
@@ -140,6 +145,7 @@ const Login = () => {
             </div>
             <button
               type="button"
+              onClick={handleGoogleLogin}
               className="w-full py-3 rounded-lg border border-zinc-300 text-black font-semibold bg-white hover:bg-red-600 hover:text-white transition-colors duration-300 flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
             >
               <svg className="w-5 h-5" viewBox="0 0 48 48"><g><path fill="#4285F4" d="M43.6 20.5h-1.9V20H24v8h11.3c-1.6 4.3-5.6 7-10.3 7-6.1 0-11-4.9-11-11s4.9-11 11-11c2.6 0 5 .9 6.8 2.4l6.4-6.4C35.4 6.7 30 4.5 24 4.5c-10.6 0-19.2 8.6-19.2 19.2s8.6 19.2 19.2 19.2c9.2 0 17.3-6.5 19-15V20.5z"></path><path fill="#34A853" d="M6.3 14.6l6.6 4.8C14.2 16 18.8 12.5 24 12.5c2.6 0 5 .9 6.8 2.4l6.4-6.4C35.4 6.7 30 4.5 24 4.5c-7.1 0-13.4 4.1-16.4 10.1z"></path><path fill="#FBBC05" d="M24 44.9c6.6 0 12.2-2.2 16.3-5.9l-7.5-6.1c-2.2 1.6-5 2.5-8.8 2.5-4.7 0-8.7-2.7-10.3-7h-7.6v4.4c3 6 9.3 10.1 16.4 10.1z"></path><path fill="#EA4335" d="M43.6 20.5h-1.9V20H24v8h11.3c-.7 2-.7 4 0 6h6.9c1.3-2.5 2.1-5.8 2.1-9C44.2 23.8 43.6 22.1 43.6 20.5z"></path></g></svg>

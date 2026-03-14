@@ -182,6 +182,31 @@ class AdminServices {
             token
         }
     }
+
+    async googleWithLogin(adminData) {
+        adminData.email = adminData.email.trim().toLowerCase();
+
+        const admin = await this.adminRepository.findAdminByEmail(adminData.email);
+
+        if (!admin) {
+            throw new AppError("Admin not found. Please register with Google first.", 404);
+        }
+
+        if (admin.provider !== "google") {
+            throw new AppError("Account exists with email/password login.", 401)
+        }
+
+        const token = jwt.sign(
+            { id: admin._id, role: admin.role },
+            config.JWT_SECRET_KEY,
+            { expiresIn: "1d" }
+        );
+
+        return {
+            admin,
+            token
+        };
+    }
 }
 
 export default new AdminServices();

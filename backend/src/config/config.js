@@ -18,7 +18,8 @@ export const config = {
   // This MUST exactly match one of the "Authorized redirect URIs" in
   // your Google Cloud OAuth client configuration.
   GOOGLE_CALLBACK_URL: process.env.GOOGLE_CALLBACK_URL,
+  GOOGLE_LOGIN_CALLBACK_URL: process.env.GOOGLE_LOGIN_CALLBACK_URL,
 
   // Frontend base URL; keep configurable for local and production.
-  FRONTEND_URL: process.env.FRONTEND_URL || 'http://localhost:5173'
+  FRONTEND_URL: process.env.FRONTEND_URL || 'http://localhost:5173',
 };

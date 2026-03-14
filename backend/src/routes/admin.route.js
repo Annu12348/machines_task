@@ -37,7 +37,7 @@ router.post(
 
 router.get(
     "/google/register",
-    passport.authenticate("google", {
+    passport.authenticate("google-register", {
         scope: ["profile", "email"],
         prompt: "select_account"
     })
@@ -45,11 +45,27 @@ router.get(
 
 router.get(
     "/google/register/callback",
-    passport.authenticate("google", {
+    passport.authenticate("google-register", {
         session: false,
         failureRedirect: "http://localhost:5173/login"
     }),
     adminController.googleWithRegister
+);
+
+router.get(
+    "/google/login",
+    passport.authenticate("google-login", {
+        scope: ["profile", "email"]
+    })
+);
+
+router.get(
+    "/google/login/callback",
+    passport.authenticate("google-login", {
+        session: false,
+        failureRedirect: "http://localhost:5173/login"
+    }),
+    adminController.googleWithLogin
 );
 
 router.get("/me", protectedRoutesController);
