@@ -139,7 +139,7 @@ class adminController {
         maxAge: 24 * 60 * 60 * 1000
       });
 
-      return res.redirect(`${config.FRONTEND_URL}/`);
+      return res.redirect(`${config.FRONTEND_URL}`);
     } catch (error) {
       return res.redirect(
         `${config.FRONTEND_URL}/login?error=${encodeURIComponent(error.message)}`
