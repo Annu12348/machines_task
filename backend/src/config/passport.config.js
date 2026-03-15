@@ -36,7 +36,7 @@ passport.use(
     {
       clientID: config.GOOGLE_CLIENT_ID,
       clientSecret: config.GOOGLE_CLIENT_SECRET,
-      callbackURL: config.GOOGLE_LOGIN_CALLBACK_URL,
+      callbackURL: config.GOOGLE_LOGIN_CALLBACK_URL, // Uses .env GOOGLE_LOGIN_CALLBACK_URL for local and GOOGLE_LOGIN_CALLBACK_LIVE_URL for production
     },
     async (accessToken, refreshToken, profile, done) => {
       const adminData = {

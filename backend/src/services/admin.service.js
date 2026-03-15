@@ -207,6 +207,16 @@ class AdminServices {
             token
         };
     }
+
+    async logout(adminId) {
+        const admin = await this.adminRepository.adminFetchById(adminId);
+
+        if (!admin) {
+            throw new AppError("Admin not found", 404)
+        }
+
+        return admin;
+    }
 }
 
 export default new AdminServices();

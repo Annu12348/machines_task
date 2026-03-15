@@ -20,6 +20,16 @@ class MongoAdminRepository extends IAdminRepository {
             throw new AppError(`failed to email: ${error.message}`, 500, error)
         }
     }
+
+    async adminFetchById (adminId) {
+        try {
+            const admin = await adminModel.findById(adminId)
+
+            return admin;
+        } catch (error) {
+            throw new AppError(`Failed to fetch admin by ID: ${error.message}`, 500, error)
+        }
+    }
 }
 
 export default MongoAdminRepository;

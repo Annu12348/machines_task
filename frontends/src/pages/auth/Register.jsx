@@ -380,7 +380,12 @@ const Register = () => {
   );
 
   const handleGoogleRegister = () => {
-    window.location.href = "http://localhost:5000/api/admin/google/register";
+    const isLocalhost = window.location.hostname === "localhost";
+    if (isLocalhost) {
+      window.location.href = "http://localhost:5000/api/admin/google/register";
+    } else {
+      window.location.href = "https://machines-task-backend.onrender.com/api/admin/google/register";
+    }
   };
 
   return (

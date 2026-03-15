@@ -1,7 +1,11 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
+import instance from '../utils/axios';
+import { logout } from '../api/Auth';
 
 const Navigation = () => {
+    const navigate = useNavigate();
+
     const navButtonClass = ({ isActive }) =>
         [
             "inline-block px-4 py-2 rounded text-md font-medium transition-colors",
@@ -10,6 +14,15 @@ const Navigation = () => {
                 : "text-gray-700 hover:underline hover:underline-offset-4"
         ].join(" ");
 
+    const handleLogout = async () => {
+        try {
+            await logout();
+            navigate('/login');
+        } catch (error) {
+            console.error("Logout failed:", error);
+        }
+    };
+
     return (
         <nav className="w-full bg-zinc-400 shadow flex flex-row items-center px-3 sm:px-6 py-2">
             <div className="flex-grow flex items-center">
@@ -17,7 +30,7 @@ const Navigation = () => {
                     Admin
                 </h2>
             </div>
-            <div className="flex flex-row  font-semibold sm:gap-4 mr-5 ">
+            <div className="flex flex-row font-semibold sm:gap-4 mr-5 ">
                 <NavLink
                     to="/"
                     className={navButtonClass}
@@ -36,6 +49,13 @@ const Navigation = () => {
                 >
                     Tasks
                 </NavLink>
+                <button
+                    onClick={handleLogout}
+                    className="inline-block px-4 py-2 rounded bg-red-500 cursor-pointer text-md font-medium transition-colors text-gray-700 "
+                    type="button"
+                >
+                    Logout
+                </button>
             </div>
         </nav>
     )

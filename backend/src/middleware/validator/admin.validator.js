@@ -61,3 +61,19 @@ export const loginValidator = [
     .isLength({ min: 8 })
     .withMessage("Password must be at least 8 characters"),
 ];
+
+export const changePasswordValidator = [
+  body("newPassword")
+    .notEmpty()
+    .withMessage("New password is required")
+    .isLength({ min: 8, max: 128 })
+    .withMessage("New password must be between 8 and 128 characters")
+    .matches(/[A-Z]/)
+    .withMessage("New password must contain at least one uppercase letter")
+    .matches(/[a-z]/)
+    .withMessage("New password must contain at least one lowercase letter")
+    .matches(/[0-9]/)
+    .withMessage("New password must contain at least one digit")
+    .matches(/[\W_]/)
+    .withMessage("New password must contain at least one special character"),
+]

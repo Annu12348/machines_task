@@ -6,6 +6,10 @@ class IAdminRepository {
     async findAdminByEmail(email) {
         throw new Error("method not implemented")
     }
+
+    async adminFetchById (adminId) {
+        throw new Error("method not implemented")
+    }
 }
 
 export default IAdminRepository;

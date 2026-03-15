@@ -146,6 +146,32 @@ class adminController {
       );
     }
   }
+
+  async logout(req, res) {
+    try {
+      const adminId = req.admin.id;
+
+      const admin = await adminService.logout(adminId);
+
+      res.clearCookie("token", {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "strict",
+        path: "/"
+      });
+
+      return res.status(200).json({
+        success: true,
+        message: "Logged out successfully",
+        data: admin,
+      });
+    } catch (error) {
+      return res.status(500).json({
+        success: false,
+        message: error.message
+      });
+    }
+  }
 }
 
 export default new adminController();

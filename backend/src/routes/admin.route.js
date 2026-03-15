@@ -1,8 +1,10 @@
 import express from "express";
 import adminController, { protectedRoutesController } from "../controller/admin.controller.js";
 import { errorValidator } from "../middleware/errorHandeling.middleware.js";
-import { loginValidator, registerValidator } from "../middleware/validator/admin.validator.js";
+import { changePasswordValidator, loginValidator, registerValidator } from "../middleware/validator/admin.validator.js";
 import passport from "../config/passport.config.js";
+import { adminAuth } from "../middleware/auth.middleware.js";
+import { config } from "../config/config.js";
 const router = express.Router();
 
 
@@ -32,7 +34,15 @@ router.post(
 
 router.post(
     "/change-password",
+    changePasswordValidator,
+    errorValidator,
     adminController.changePassword
+)
+
+router.post(
+    "/logout",
+    adminAuth,
+    adminController.logout
 )
 
 router.get(
@@ -47,7 +57,7 @@ router.get(
     "/google/register/callback",
     passport.authenticate("google-register", {
         session: false,
-        failureRedirect: "http://localhost:5173/login"
+        failureRedirect: `${config.FRONTEND_URL}/login`
     }),
     adminController.googleWithRegister
 );
@@ -63,11 +73,14 @@ router.get(
     "/google/login/callback",
     passport.authenticate("google-login", {
         session: false,
-        failureRedirect: "http://localhost:5173/login"
+        failureRedirect: `${config.FRONTEND_URL}/login`
     }),
     adminController.googleWithLogin
 );
 
-router.get("/me", protectedRoutesController);
+router.get(
+    "/me",
+    protectedRoutesController
+);
 
 export default router;

@@ -80,8 +80,12 @@ const Login = () => {
   };
 
   const handleGoogleLogin = () => {
-    window.location.href =
-      "http://localhost:5000/api/admin/google/login";
+    const isLocalhost = window.location.hostname === "localhost";
+    if (isLocalhost) {
+      window.location.href = "http://localhost:5000/api/admin/google/login";
+    } else {
+      window.location.href = "https://machines-task-backend.onrender.com/api/admin/google/login";
+    }
   };
 
   return (
