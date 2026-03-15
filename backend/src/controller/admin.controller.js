@@ -132,7 +132,7 @@ class adminController {
     try {
       const result = await adminService.googleWithLogin(req.user);
 
-      res.cookie("adminToken", result.token, {
+      res.cookie("token", result.token, {
         httpOnly: true,
         secure: false,
         sameSite: "lax",
