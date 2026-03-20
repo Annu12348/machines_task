@@ -74,7 +74,7 @@ const AddEmployee = () => {
       if (data && (data._id || data.result?._id)) {
         dispatch(addEmployees(data._id ? data : data.result));
         setSuccess(true);
-        navigate("/employees");
+        navigate("/admin/employees");
       } else if (data?.message) {
         setSubmitError(data.message);
       } else {
@@ -217,7 +217,7 @@ const AddEmployee = () => {
             </button>
             <button
               type="button"
-              onClick={() => navigate("/employees")}
+              onClick={() => navigate("/admin/employees")}
               className="bg-gray-300 text-gray-700 px-4 sm:px-6 py-2 rounded-lg hover:bg-gray-400 transition font-semibold"
               disabled={loading}
             >

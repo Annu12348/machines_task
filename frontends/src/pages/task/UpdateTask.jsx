@@ -45,7 +45,7 @@ const UpdateTask = () => {
     e.preventDefault();
     try {
       await updateTask(id, formData);
-      navigate("/tasks");
+      navigate("/admin/tasks");
     } catch (error) {
       console.log("Full Error:", error);
       console.log("Backend Error:", error.response?.data);
@@ -146,7 +146,7 @@ const UpdateTask = () => {
 
             <button
               type="button"
-              onClick={() => navigate("/tasks")}
+              onClick={() => navigate("/admin/tasks")}
               className="bg-gray-300 text-gray-700 px-4 sm:px-6 py-2 rounded-lg hover:bg-gray-400 transition font-semibold"
             >
               Cancel

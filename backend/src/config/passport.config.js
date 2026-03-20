@@ -19,7 +19,7 @@ passport.use(
           googleId: profile.id,
           imageUrl: profile.photos?.[0]?.value,
           provider: "google",
-          role: "Admin",
+          role: "Employee",
         };
 
         return done(null, adminData);
@@ -45,7 +45,7 @@ passport.use(
         googleId: profile.id,
         imageUrl: profile.photos?.[0]?.value,
         provider: "google",
-        role: "Admin",
+        role: "Employee",
       };
 
       return done(null, adminData);

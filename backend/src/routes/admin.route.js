@@ -39,7 +39,7 @@ router.post(
     adminController.changePassword
 )
 
-router.post(
+router.delete(
     "/logout",
     adminAuth,
     adminController.logout

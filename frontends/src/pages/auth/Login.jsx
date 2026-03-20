@@ -58,8 +58,8 @@ const Login = () => {
     try {
       const { data } = await login(inputValue);
       if (data && data.result && data.result._id) {
-        dispatch(setAdminUser(data.result));
         setSuccess(true);
+        dispatch(setAdminUser(data.admin))
         navigate("/");
       } else if (data?.message) {
         setSubmitError(data.message || "Login failed. Please try again.");

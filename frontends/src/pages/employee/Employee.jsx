@@ -100,7 +100,7 @@ const Employee = () => {
         <div className="flex flex-col sm:flex-row gap-4 sm:gap-0 justify-between items-start sm:items-center mb-6">
           <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-blue-900 mb-2 sm:mb-0">Employees</h1>
           <Link
-            to='/employees/create'
+            to='/admin/employees/create'
             className="bg-blue-700 text-white px-4 sm:px-5 py-2 font-semibold rounded-lg shadow hover:bg-blue-800 transition-all whitespace-nowrap"
           >
             Add Employee
@@ -180,7 +180,7 @@ const Employee = () => {
                         </td>
                         <td className="py-4 px-4 flex gap-1 space-x-2">
                           <Link 
-                            to={`/employees/update/${emp._id}`}
+                            to={`/admin/employees/update/${emp._id}`}
                             className="bg-blue-800 text-white px-4 py-1.5 rounded-full font-semibold shadow hover:scale-105 transition-transform flex items-center justify-center"
                             aria-label="Edit Employee"
                           >

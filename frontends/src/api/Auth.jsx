@@ -29,5 +29,7 @@ export const changePassword = (data) => {
 }
 
 export const logout = () => {
-   return instance.post('/logout');
+   return instance.delete('/logout', {
+    withCredentials: true
+   });
 }

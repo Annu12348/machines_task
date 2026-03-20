@@ -60,7 +60,6 @@ class adminController {
 
       res.status(200).json({
         message: "OTP sent successfully",
-        data: admin
       });
     } catch (error) {
       res.status(500).json({
@@ -78,7 +77,6 @@ class adminController {
       res.status(200).json({
         success: true,
         message: "OTP verified successfully",
-        data: admin
       })
     } catch (error) {
       res.status(500).json({
@@ -96,7 +94,6 @@ class adminController {
       res.status(200).json({
         success: true,
         message: "Password changed successfully",
-        data: admin
       })
     } catch (error) {
       res.status(500).json({
@@ -163,7 +160,6 @@ class adminController {
       return res.status(200).json({
         success: true,
         message: "Logged out successfully",
-        data: admin,
       });
     } catch (error) {
       return res.status(500).json({

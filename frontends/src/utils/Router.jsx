@@ -11,6 +11,8 @@ import CreatedTask from '../pages/task/CreatedTask'
 import UpdateTask from '../pages/task/UpdateTask'
 import Register from '../pages/auth/Register'
 import ForgetPassword from '../pages/auth/ForgetPassword'
+import Home from '../public_page/home/Home'
+import EmployeeDashboard from '../employee/EmployeeDashboard'
 
 
 const Router = () => {
@@ -21,37 +23,47 @@ const Router = () => {
       <Route path='/forget-password' element={<ForgetPassword />} />
       <Route path='/' element={
         <ProtectRoutes>
+          <Home />
+        </ProtectRoutes>
+      } />
+      <Route path='/admin/dashboard' element={
+        <ProtectRoutes>
           <Dashboard />
         </ProtectRoutes>
       } />
-      <Route path='/employees' element={
+      <Route path='/admin/employees' element={
         <ProtectRoutes>
           <Employee />
         </ProtectRoutes>
       } />
-      <Route path='employees/create' element={
+      <Route path='/admin/employees/create' element={
         <ProtectRoutes>
           <AddEmployee />
         </ProtectRoutes>
       } />
-      <Route path='employees/update/:id' element={
+      <Route path='/admin/employees/update/:id' element={
         <ProtectRoutes>
           <UpdateEmployee />
         </ProtectRoutes>
       } />
-      <Route path='/tasks' element={
+      <Route path='/admin/tasks' element={
         <ProtectRoutes>
           <Task />
         </ProtectRoutes>
       } />
-      <Route path='/tasks/create' element={
+      <Route path='/admin/tasks/create' element={
         <ProtectRoutes>
           <CreatedTask />
         </ProtectRoutes>
       } />
-      <Route path='/tasks/update/:id' element={
+      <Route path='/admin/tasks/update/:id' element={
         <ProtectRoutes>
           <UpdateTask />
+        </ProtectRoutes>
+      } />
+      <Route path='/employee/dashboard' element={
+        <ProtectRoutes>
+          <EmployeeDashboard />
         </ProtectRoutes>
       } />
     </Routes>

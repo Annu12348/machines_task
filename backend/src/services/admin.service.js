@@ -164,6 +164,7 @@ class AdminServices {
 
         const admin = await this.adminRepository.createdAdmin({
             ...adminData,
+            role: "Employee",
             provider: "google"
         });
 

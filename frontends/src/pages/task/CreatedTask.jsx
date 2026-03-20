@@ -65,7 +65,7 @@ const CreatedTask = () => {
         status: "Pending",
       });
       setFormError({});
-      navigate("/tasks");
+      navigate("/admin/tasks");
     } catch (error) {
       setSubmitError(
         error?.response?.data?.message || error.message || "Failed to create task."
@@ -198,7 +198,7 @@ const CreatedTask = () => {
             </button>
             <button
               type="button"
-              onClick={() => navigate("/tasks")}
+              onClick={() => navigate("/admin/tasks")}
               className="bg-gray-300 text-gray-700 px-4 sm:px-6 py-2 rounded-lg hover:bg-gray-400 transition font-semibold"
             >
               Cancel

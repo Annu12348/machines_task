@@ -91,7 +91,7 @@ const UpdateEmployee = () => {
 
     try {
       await updateEmployee(formData);
-      navigate("/employees");
+      navigate("/admin/employees");
     } catch (error) {
       setSubmitError(
         error?.response?.data?.message || error?.message || "Update Failed"
@@ -208,7 +208,7 @@ const UpdateEmployee = () => {
             </button>
             <button
               type="button"
-              onClick={() => navigate("/employees")}
+              onClick={() => navigate("/admin/employees")}
               className="bg-gray-300 text-gray-700 px-4 sm:px-6 py-2 rounded-lg hover:bg-gray-400 transition font-semibold"
             >
               Cancel

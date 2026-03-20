@@ -1,7 +1,7 @@
 import React from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
-import instance from '../utils/axios';
 import { logout } from '../api/Auth';
+import { setAdminUser } from '../redux/reducer/AdminUserSlice';
 
 const Navigation = () => {
     const navigate = useNavigate();
@@ -32,19 +32,19 @@ const Navigation = () => {
             </div>
             <div className="flex flex-row font-semibold sm:gap-4 mr-5 ">
                 <NavLink
-                    to="/"
+                    to="/admin/dashboard"
                     className={navButtonClass}
                 >
                     Dashboard
                 </NavLink>
                 <NavLink
-                    to="/employees"
+                    to="/admin/employees"
                     className={navButtonClass}
                 >
                     Employees
                 </NavLink>
                 <NavLink
-                    to="/tasks"
+                    to="/admin/tasks"
                     className={navButtonClass}
                 >
                     Tasks
