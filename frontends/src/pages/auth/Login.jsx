@@ -60,7 +60,7 @@ const Login = () => {
       if (data && data.result && data.result._id) {
         setSuccess(true);
         dispatch(setAdminUser(data.admin))
-        navigate("/");
+        navigate("/admin/dashboard");
       } else if (data?.message) {
         setSubmitError(data.message || "Login failed. Please try again.");
       } else {

@@ -13,6 +13,10 @@ import Register from '../pages/auth/Register'
 import ForgetPassword from '../pages/auth/ForgetPassword'
 import Home from '../public_page/home/Home'
 import EmployeeDashboard from '../employee/EmployeeDashboard'
+import Profile from '../pages/profile/Profile'
+import About from '../public_page/about/About'
+import Feature from '../public_page/feature/Feature'
+import Contact from '../public_page/contact/Contact'
 
 
 const Router = () => {
@@ -22,8 +26,20 @@ const Router = () => {
       <Route path='/register' element={<Register />} />
       <Route path='/forget-password' element={<ForgetPassword />} />
       <Route path='/' element={
-        <ProtectRoutes>
           <Home />
+      } />
+      <Route path='/about' element={
+          <About />
+      } />
+      <Route path='/feature' element={
+          <Feature />
+      } />
+            <Route path='/contact' element={
+          <Contact />
+      } />
+      <Route path='/profile' element={
+        <ProtectRoutes>
+          <Profile />
         </ProtectRoutes>
       } />
       <Route path='/admin/dashboard' element={

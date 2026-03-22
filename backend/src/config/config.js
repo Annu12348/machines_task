@@ -15,9 +15,6 @@ export const config = {
   GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
   GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
 
-  // This MUST exactly match one of the "Authorized redirect URIs" in
-  // your Google Cloud OAuth client configuration.
-  // Support both local and production URLs using environment variables from .env
   GOOGLE_CALLBACK_URL: process.env.NODE_ENV === "production"
     ? process.env.GOOGLE_CALLBACK_LIVE_URL
     : process.env.GOOGLE_CALLBACK_URL,
@@ -29,3 +26,5 @@ export const config = {
     ? process.env.FRONTEND_LIVE_URL
     : process.env.FRONTEND_URL,
 };
+
+//1:00 to 
