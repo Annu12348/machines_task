@@ -35,13 +35,13 @@ const PublicNavigation = () => {
             </div>
             <div className='gap-5 flex font-["Poppins"]'>
                 <Link
-                    to='/login'
+                    to='/employee/login'
                     className='text-sm px-5 py-2 text-white rounded tracking-tight leadn font-normal  bg-black '
                 >
                     login
                 </Link>
                 <Link
-                    to='/register'
+                    to='/employee/register'
                     className='text-sm px-5 py-2 rounded text-white tracking-tight leadn font-normal  bg-blue-500 '
                 >
                     signup

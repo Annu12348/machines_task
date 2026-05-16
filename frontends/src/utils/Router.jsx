@@ -17,25 +17,49 @@ import Profile from '../pages/profile/Profile'
 import About from '../public_page/about/About'
 import Feature from '../public_page/feature/Feature'
 import Contact from '../public_page/contact/Contact'
+import EmployeeLogin from '../pages/auth/EmployeeLogin'
+import EmployeeRegister from '../pages/auth/EmployeeRegister'
 
 
 const Router = () => {
   return (
     <Routes>
-      <Route path='/login' element={<Login />} />
-      <Route path='/register' element={<Register />} />
-      <Route path='/forget-password' element={<ForgetPassword />} />
+      <Route
+        path='/admin/login'
+        element={<Login />}
+      />
+
+      <Route
+        path='/admin/register'
+        element={<Register />}
+      />
+
+      <Route
+        path='/employee/login'
+        element={<EmployeeLogin />}
+      />
+
+      <Route
+        path='/employee/register'
+        element={<EmployeeRegister />}
+      />
+
+      <Route
+        path='/forget-password'
+        element={<ForgetPassword />}
+      />
+
       <Route path='/' element={
-          <Home />
+        <Home />
       } />
       <Route path='/about' element={
-          <About />
+        <About />
       } />
       <Route path='/feature' element={
-          <Feature />
+        <Feature />
       } />
-            <Route path='/contact' element={
-          <Contact />
+      <Route path='/contact' element={
+        <Contact />
       } />
       <Route path='/profile' element={
         <ProtectRoutes>
