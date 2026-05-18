@@ -1,13 +1,14 @@
-import React from 'react'
-import { BsBatteryCharging, BsStars } from 'react-icons/bs'
-import { FaUser } from "react-icons/fa"
-import { GrSecure } from "react-icons/gr"
-import { FcCandleSticks } from "react-icons/fc"
+import React from 'react';
+import { BsBatteryCharging, BsStars } from 'react-icons/bs';
+import { FaUser } from 'react-icons/fa';
+import { GrSecure } from 'react-icons/gr';
+import { FcCandleSticks } from 'react-icons/fc';
 
 const EmployeeRegister = () => {
     return (
         <div className="w-full min-h-screen flex bg-zinc-200 p-3">
-            <div className="w-[23%] flex flex-col h-100% p-4 gap-3 items-start justify-start rounded-l-lg shadow bg-[#0e022e]">
+            {/* LEFT Panel (NO SCROLL) */}
+            <div className="w-[23%] flex flex-col h-100% p-4 gap-3 items-start justify-start rounded-l-lg shadow bg-[#0e022e] flex-shrink-0 overflow-hidden">
                 <div className="w-full flex items-center gap-4">
                     <h1 className="text-blue-500 text-2xl">
                         <BsBatteryCharging />
@@ -58,7 +59,8 @@ const EmployeeRegister = () => {
                     </div>
                 </div>
             </div>
-            <div className="w-[77%] h-full shadow rounded-r-lg bg-white p-4">
+            {/* RIGHT Panel (SCROLLABLE) */}
+            <div className="w-[77%] h-full shadow rounded-r-lg bg-white p-4 overflow-y-auto max-h-[calc(100vh-1.5rem)]">
                 <div className="max-w-2xl mx-auto">
                     <div className="mb-12 text-center">
                         <h2 className="text-5xl font-bold text-gray-900 mb-4">
@@ -69,35 +71,92 @@ const EmployeeRegister = () => {
                         </p>
                     </div>
                 </div>
-                <form className="space-y-7">
+                <form className="space-y-3">
                     <div>
-                        <label className="block text-lg font-semibold text-gray-800 mb-3">
+                        <label className="block text-lg font-semibold text-gray-800">
+                            Full Name
+                        </label>
+                        <input
+                            type="text"
+                            placeholder="Enter your full name"
+                            className="w-full py-2.5 border border-gray-300 rounded-lg px-3 text-lg outline-none focus:ring-2 focus:ring-blue-500"
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-lg font-semibold text-gray-800 mb-1">
+                            Employee ID
+                        </label>
+                        <input
+                            type="text"
+                            placeholder="Enter employee ID"
+                            className="w-full py-2.5 border border-gray-300 rounded-lg px-3 text-lg outline-none focus:ring-2 focus:ring-blue-500"
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-lg font-semibold text-gray-800">
+                            Email Address
+                        </label>
+                        <input
+                            type="email"
+                            placeholder="Enter your email address"
+                            className="w-full border border-gray-300 rounded-lg px-3 py-2.5  text-lg outline-none focus:ring-2 focus:ring-blue-500"
+                        />
+                    </div>
+
+                    <div>
+                        <label className="block text-lg font-semibold text-gray-800">
+                            Phone Number
+                        </label>
+                        <input
+                            type="text"
+                            placeholder="Enter your phone number"
+                            className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-lg outline-none focus:ring-2 focus:ring-blue-500"
+                        />
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label className="block text-lg font-semibold text-gray-800 mb-1">
+                                Department
+                            </label>
+                            <select className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-lg outline-none focus:ring-2 focus:ring-blue-500 bg-white">
+                                <option>Select Department</option>
+                                <option>Frontend</option>
+                                <option>Backend</option>
+                                <option>HR</option>
+                                <option>Marketing</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label className="block text-lg font-semibold text-gray-800 mb-1">
+                                Designation
+                            </label>
+                            <input
+                                type="text"
+                                placeholder="Enter your designation"
+                                className="w-full  border border-gray-300 rounded-lg px-3 py-2.5 text-lg outline-none focus:ring-2 focus:ring-blue-500"
+                            />
+                        </div>
+                  
+                    </div>
+                    <div>
+                        <label className="block text-lg font-semibold text-gray-800 ">
                             Password
                         </label>
                         <input
                             type="password"
                             placeholder="Enter your password"
-                            className="w-full h-16 border border-gray-300 rounded-2xl px-5 text-lg outline-none focus:ring-2 focus:ring-blue-500"
+                            className="w-full  border border-gray-300 rounded-lg px-3 py-2.5 text-lg outline-none focus:ring-2 focus:ring-blue-500"
                         />
                     </div>
                     <div>
-                        <label className="block text-lg font-semibold text-gray-800 mb-3">
+                        <label className="block text-lg font-semibold text-gray-800 ">
                             Confirm Password
                         </label>
                         <input
                             type="password"
                             placeholder="Confirm your password"
-                            className="w-full h-16 border border-gray-300 rounded-2xl px-5 text-lg outline-none focus:ring-2 focus:ring-blue-500"
-                        />
-                    </div>
-
-                    <div>
-                        <label className="block text-lg font-semibold text-gray-800 mb-3">
-                            Profile Image (Optional)
-                        </label>
-                        <input
-                            type="file"
-                            className="w-full border border-gray-300 rounded-2xl p-4 text-lg outline-none focus:ring-2 focus:ring-blue-500"
+                            className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-lg outline-none focus:ring-2 focus:ring-blue-500"
                         />
                     </div>
 
@@ -126,7 +185,7 @@ const EmployeeRegister = () => {
                 </form>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default EmployeeRegister
+export default EmployeeRegister;
