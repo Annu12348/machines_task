@@ -1,10 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BsBatteryCharging, BsStars } from 'react-icons/bs';
 import { FaUser } from 'react-icons/fa';
 import { GrSecure } from 'react-icons/gr';
 import { FcCandleSticks } from 'react-icons/fc';
 
 const EmployeeRegister = () => {
+    const [inputValue, setInputValue] = useState({
+        fullName: "",
+        employeeId: "",
+        emailAddress: "",
+        phoneNumer: "",
+        Department: "",
+        Designation: "",
+        Password: "",
+        ConfirmPassword: ""
+    })
     return (
         <div className="w-full min-h-screen flex bg-zinc-200 p-3">
             {/* LEFT Panel (NO SCROLL) */}
@@ -79,6 +89,8 @@ const EmployeeRegister = () => {
                         <input
                             type="text"
                             placeholder="Enter your full name"
+                            value={inputValue.fullName}
+                            onChange={(e) => setInputValue({ ...inputValue, fullName: e.target.value })}
                             className="w-full py-2.5 border border-gray-300 rounded-lg px-3 text-lg outline-none focus:ring-2 focus:ring-blue-500"
                         />
                     </div>
@@ -89,6 +101,8 @@ const EmployeeRegister = () => {
                         <input
                             type="text"
                             placeholder="Enter employee ID"
+                            value={inputValue.employeeId}
+                            onChange={(e) => setInputValue({...inputValue, employeeId: e.target.value})}
                             className="w-full py-2.5 border border-gray-300 rounded-lg px-3 text-lg outline-none focus:ring-2 focus:ring-blue-500"
                         />
                     </div>
@@ -99,6 +113,8 @@ const EmployeeRegister = () => {
                         <input
                             type="email"
                             placeholder="Enter your email address"
+                            value={inputValue.emailAddress}
+                            onChange={(e) => setInputValue({...inputValue, emailAddress: e.target.value})}
                             className="w-full border border-gray-300 rounded-lg px-3 py-2.5  text-lg outline-none focus:ring-2 focus:ring-blue-500"
                         />
                     </div>
@@ -110,6 +126,8 @@ const EmployeeRegister = () => {
                         <input
                             type="text"
                             placeholder="Enter your phone number"
+                            value={inputValue.phoneNumer}
+                            onChange={(e) => setInputValue({...inputValue, phoneNumer: e.target.value})}
                             className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-lg outline-none focus:ring-2 focus:ring-blue-500"
                         />
                     </div>
@@ -119,14 +137,19 @@ const EmployeeRegister = () => {
                             <label className="block text-lg font-semibold text-gray-800 mb-1">
                                 Department
                             </label>
-                            <select className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-lg outline-none focus:ring-2 focus:ring-blue-500 bg-white">
-                                <option>Select Department</option>
-                                <option>Frontend</option>
-                                <option>Backend</option>
-                                <option>HR</option>
-                                <option>Marketing</option>
+                            <select
+                                name="department"
+                                value={inputValue.department || ""}
+                                onChange={(e) => setInputValue({ ...inputValue, department: e.target.value })}
+                                className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-lg outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+                            >
+                                <option value="">Select Department</option>
+                                <option value="Frontend">Frontend</option>
+                                <option value="Backend">Backend</option>
+                                <option value="HR">HR</option>
+                                <option value="Marketing">Marketing</option>
                             </select>
-                        </div>
+                        </div>                   
                         <div>
                             <label className="block text-lg font-semibold text-gray-800 mb-1">
                                 Designation
@@ -134,6 +157,7 @@ const EmployeeRegister = () => {
                             <input
                                 type="text"
                                 placeholder="Enter your designation"
+                                onChange={(e) => setInputValue({...inputValue, Designation: e.target.value})}
                                 className="w-full  border border-gray-300 rounded-lg px-3 py-2.5 text-lg outline-none focus:ring-2 focus:ring-blue-500"
                             />
                         </div>
@@ -146,6 +170,8 @@ const EmployeeRegister = () => {
                         <input
                             type="password"
                             placeholder="Enter your password"
+                            value={inputValue.Password}
+                            onChange={(e) => setInputValue({...inputValue, Password: e.target.value})}
                             className="w-full  border border-gray-300 rounded-lg px-3 py-2.5 text-lg outline-none focus:ring-2 focus:ring-blue-500"
                         />
                     </div>
@@ -156,6 +182,8 @@ const EmployeeRegister = () => {
                         <input
                             type="password"
                             placeholder="Confirm your password"
+                            value={inputValue.ConfirmPassword}
+                            onChange={(e) => setInputValue({...inputValue, ConfirmPassword: e.target.value})}
                             className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-lg outline-none focus:ring-2 focus:ring-blue-500"
                         />
                     </div>

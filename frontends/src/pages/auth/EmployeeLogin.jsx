@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BsBatteryCharging, BsStars } from 'react-icons/bs';
 import { FaUser } from 'react-icons/fa';
 import { GrSecure } from 'react-icons/gr';
 import { FcCandleSticks } from 'react-icons/fc';
 
 const EmployeeLogin = () => {
+    const [ inputValue, setInputValue ] = useState({
+        emailAddress: "",
+        password: ""
+    }) 
     return (
         <div className="w-full min-h-screen flex bg-zinc-200 p-3">
             {/* LEFT Panel (NO SCROLL) */}
@@ -80,6 +84,8 @@ const EmployeeLogin = () => {
                         <input
                             type="email"
                             placeholder="Enter your email address"
+                            value={inputValue.emailAddress}
+                            onChange={(e) => setInputValue({...inputValue, emailAddress: e.target.value})}
                             className="w-full border border-gray-300 rounded-lg px-3 py-2.5  text-lg outline-none focus:ring-2 focus:ring-blue-500"
                         />
                     </div>
@@ -90,6 +96,8 @@ const EmployeeLogin = () => {
                         <input
                             type="password"
                             placeholder="Enter your password"
+                            value={inputValue.password}
+                            onChange={(e) => setInputValue({...inputValue, password: e.target.value})}
                             className="w-full  border border-gray-300 rounded-lg px-3 py-2.5 text-lg outline-none focus:ring-2 focus:ring-blue-500"
                         />
                     </div>
